@@ -45,17 +45,19 @@ def searchingByDFS():
         return auxDFS
 
 #Print the path
-def path(node):
+def path(node, count):
     actual = node
     steps = []
     if(node != None):
-        print(node.cost)
+        print("Cost:",node.cost)
     while(actual != None):
         if(actual.parentNode != None):
             steps.append(actual.movement)
         actual = actual.parentNode
     while(len(steps) > 0):
+        count += 1
         print(steps.pop()),
+    return count    
 
 #Read the input file
 reader = InputReader()
@@ -75,6 +77,7 @@ initialState = initialConfiguration
 #Search
 auxDFS = searchingByDFS()
 if (auxDFS != None):
-    path(auxDFS) #Print solution
+    count = 0;
+    print("Total nodes:",path(auxDFS,count)) #Print solution
 else:
     print ("No solution found")
