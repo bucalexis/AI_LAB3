@@ -62,6 +62,7 @@ def adaptSolution(node):
 def aStar():
     path = []
     finalCost = 0
+    global nodesToExpand
     while nodesToExpand:
         node = nodesToExpand.pop()
         #Result found
