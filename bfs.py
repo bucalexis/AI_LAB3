@@ -99,7 +99,7 @@ if searchingByBFS():
     cost, path = adaptSolution(success)
 #Print solution
 if len(path) > 0:
-    print len(visitedNodes)
+    print (len(visitedNodes))
     print(cost)
     print(''.join(item for item in path))
 else:
