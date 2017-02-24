@@ -16,16 +16,7 @@ nodesToExpand = []
 
 #Heuristic: the number of blocks that are incorrectly placed in each stack
 def heuristicCost(state):
-	
-    cost = 0
-    for i, stack in enumerate(state):
-        for j, block in enumerate(stack):
-            try:
-                if block != goalState[i][j]:
-				    cost += 1
-            except IndexError:
-                cost += 1
-	return cost
+	return 1
 
 #Calculates the cost of moving the block from one stack to another
 def movementCost(fromStack, toStack):
