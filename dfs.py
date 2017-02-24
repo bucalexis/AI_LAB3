@@ -2,6 +2,16 @@ from node import TreeNode
 from inputReader import  InputReader
 import copy
 
+#Search algorithm DFS
+def searchingByDFS():
+    visitedNodes = []
+    auxDFS = searchingRecursive(initialState, visitedNodes)
+    if(auxDFS == None):
+        return None
+    else:
+        return auxDFS
+
+#Recursive function
 def searchingRecursive(initialState, visitedNodes):
     node = initialState
     nodeInitialState = node.state
@@ -12,12 +22,12 @@ def searchingRecursive(initialState, visitedNodes):
     else:
         for i in range(0, stateLength):
             for j in range(0, stateLength):
-                if (i != j and (len(nodeInitialState[j])) > 0 and (len(nodeInitialState[i])) < maxHeight):
-                    nstate = copy.deepcopy(nodeInitialState)
+                if ((len(nodeInitialState[j])) > 0 and i != j and (len(nodeInitialState[i])) < maxHeight):
+                    newState = copy.deepcopy(nodeInitialState)
                    
                     #Put the last container j -> i 
-                    nstate[i].append(nstate[j].pop())
-                    if (not(visitedNodes.count(nstate))):
+                    newState[i].append(newState[j].pop())
+                    if (not(visitedNodes.count(newState))):
                         movements = [i, j]
                         
                         #New cost
@@ -25,10 +35,10 @@ def searchingRecursive(initialState, visitedNodes):
                         newCost = 1 + abs(i - j) + cost
                         
                         #New node
-                        newNode = TreeNode(node, nstate, movements, newCost)
+                        newNode = TreeNode(node, newState, movements, newCost)
                         
                         #Visited list
-                        visitedNodes.append(nstate)
+                        visitedNodes.append(newState)
 
                         #Recursive call
                         auxDFS = searchingRecursive(newNode, visitedNodes)
@@ -36,27 +46,19 @@ def searchingRecursive(initialState, visitedNodes):
                             return auxDFS
     return None
 
-def searchingByDFS():
-    visitedNodes = []
-    auxDFS = searchingRecursive(initialState, visitedNodes)
-    if(auxDFS == None):
-        return None
-    else:
-        return auxDFS
-
 #Print the path
 def path(node, count):
-    actual = node
+    current = node
     steps = []
     if(node != None):
-        print("Cost:",node.cost)
-    while(actual != None):
-        if(actual.parentNode != None):
-            steps.append(actual.movement)
-        actual = actual.parentNode
+        print("Cost:",node.cost) #Total cost of the path
+    while(current != None):
+        if(current.parentNode != None):
+            steps.append(current.movement)
+        current = current.parentNode
     while(len(steps) > 0):
         count += 1
-        print(steps.pop()),
+        print(steps.pop()), #Nodes visited
     return count    
 
 #Read the input file
