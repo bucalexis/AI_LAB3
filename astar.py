@@ -104,7 +104,7 @@ nodesToExpand = [TreeNode(None, initialConfiguration, None, 0)]
 cost, path = aStar()
 #Print solution
 if len(path) > 0:
-    print len(visitedNodes)
+    #print len(visitedNodes)
     print(cost)
     print(''.join(item for item in path)[:-1][:-1])
 else:
