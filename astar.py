@@ -25,7 +25,7 @@ def heuristicCost(state):
 				    cost += 1
             except IndexError:
                 cost += 1
-	return cost
+    return 0
 
 #Calculates the cost of moving the block from one stack to another
 def movementCost(fromStack, toStack):
@@ -77,7 +77,7 @@ def aStar():
                     newState, newStateCost = moveBlock(auxState, i, j)
                     newNode = TreeNode(node, newState, [i, j], newStateCost + node.cost)
                     
-                    #if the new node has not been visited, it is added to the visited list
+                    #if the new node has not been visited and it is not in the toExpand list, it is added to the visited list
                     if newNode.state not in visitedNodes and not any(n.state == newNode.state for n in nodesToExpand):
                         nodesToExpand.append(newNode)
                         nodesToExpand.sort(key = operator.attrgetter('cost'), reverse = True)
@@ -104,7 +104,7 @@ nodesToExpand = [TreeNode(None, initialConfiguration, None, 0)]
 cost, path = aStar()
 #Print solution
 if len(path) > 0:
-   # print len(visitedNodes)
+    print len(visitedNodes)
     print(cost)
     print(''.join(item for item in path)[:-1][:-1])
 else:
