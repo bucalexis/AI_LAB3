@@ -54,7 +54,6 @@ def adaptSolution(node):
     while node.parentNode:
         path.insert(0, "(" + str(node.movement[0]) + ", " + str(node.movement[1]) + "); ")
         finalCost -= heuristicCost(node.state)
-        #finalCost -= hcost(node.state)
         node = node.parentNode
     return finalCost, path
 
