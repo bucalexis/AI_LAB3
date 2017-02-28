@@ -45,8 +45,7 @@ def heuristicCost(state):
 				    cost += 1
             except IndexError:
                 cost += 1
-    return 0
-
+    return cost
 #Calculates the cost of moving the block from one stack to another
 def movementCost(fromStack, toStack):
     return 1 + abs(fromStack - toStack)
@@ -57,9 +56,11 @@ def moveBlock(state, fromStack, toStack):
     block = state[fromStack][-1]
     del state[fromStack][-1]
     state[toStack].append(block)
-    #cost = movementCost(fromStack, toStack) + heuristicCost(state)
-    cost = movementCost(fromStack, toStack) + hcost(state)
-
+    cost = movementCost(fromStack, toStack) + heuristicCost(state)
+    #cost = movementCost(fromStack, toStack) + hcost(state)
+   # if (heuristicCost(state) != hcost(state)):
+    #    print ('My cost:', heuristicCost(state))
+     #   print ('My cost2:', hcost(state))
     return state, cost
 
 #Checks if a state of a node is the goal state        
@@ -76,8 +77,8 @@ def adaptSolution(node):
     finalCost = node.cost
     while node.parentNode:
         path.insert(0, "(" + str(node.movement[0]) + ", " + str(node.movement[1]) + "); ")
-        #finalCost -= heuristicCost(node.state)
-        finalCost -= hcost(node.state)
+        finalCost -= heuristicCost(node.state)
+        #finalCost -= hcost(node.state)
         node = node.parentNode
     return finalCost, path
 
