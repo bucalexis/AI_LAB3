@@ -14,26 +14,6 @@ goalState = []
 visitedNodes = []
 nodesToExpand = []
 
-def find_crate(crate, state):
-    #method to find the crate that should move in a given state
-    for i, stack in enumerate(state):
-        try:
-            j = stack.index(crate)
-        except ValueError:
-            continue
-        return i, j
-    return None
-
-def hcost(state):
-    #Heuristic: the number of missplaced creates
-    missplaced = 0
-    for i, stack in enumerate(state):
-        for j, crate in enumerate(stack):
-            if find_crate(crate, state) != find_crate(crate, goalState):
-                missplaced += 1
-    return missplaced
-
-
 #Heuristic: the number of blocks that are incorrectly placed in each stack
 def heuristicCost(state):
 	
@@ -57,10 +37,6 @@ def moveBlock(state, fromStack, toStack):
     del state[fromStack][-1]
     state[toStack].append(block)
     cost = movementCost(fromStack, toStack) + heuristicCost(state)
-    #cost = movementCost(fromStack, toStack) + hcost(state)
-   # if (heuristicCost(state) != hcost(state)):
-    #    print ('My cost:', heuristicCost(state))
-     #   print ('My cost2:', hcost(state))
     return state, cost
 
 #Checks if a state of a node is the goal state        
